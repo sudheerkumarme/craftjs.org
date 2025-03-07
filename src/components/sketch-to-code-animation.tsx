@@ -4,26 +4,18 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function SketchToCodeAnimation() {
-  const [step, setStep] = useState(0);
+const [step, setStep] = useState(0);
 
-  // Cycle through animation steps
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStep((prev) => (prev + 1) % 4);
-    }, 3000);
+// Cycle through animation steps
+useEffect(() => {
+  const interval = setInterval(() => {
+    setStep((prev) => (prev + 1) % 4);
+  }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, []);
 
-  const sketchCode = `
-<div>
-  <h1>Hello</h1>
-  <p>Welcome</p>
-  <button>Click</button>
-</div>
-  `.trim();
-
-  const generatedCode = `
+const generatedCode = `
 import { Button } from "@/components/ui/button"
 
 export default function Welcome() {
