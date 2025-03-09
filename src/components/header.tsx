@@ -54,7 +54,7 @@ export default function Header() {
               How It Works
             </Link>
             <Link
-              href="#"
+              href="/login"
               className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
             >
               Docs

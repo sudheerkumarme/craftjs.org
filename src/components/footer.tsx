@@ -42,7 +42,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/login"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Pricing
@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/login"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Blog
@@ -64,6 +64,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
+                  target="_blank"
                   href="https://x.com/sudheerkumarme"
                   className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
@@ -73,6 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  target="_blank"
                   href="https://github.com/nextcrafter/craftjs"
                   className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
@@ -82,7 +84,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/login"
                   className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                 >
                   <FileText className="h-4 w-4" />
@@ -107,7 +109,10 @@ export default function Footer() {
             &copy; {currentYear} CraftJS. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground mt-2 md:mt-0">
-            Crafted with ❤️ by <Link target="_blank" href="https://www.nextcrafter.com" >NextCrafter</Link>
+            Crafted with ❤️ by{" "}
+            <Link target="_blank" href="https://www.nextcrafter.com">
+              NextCrafter
+            </Link>
           </p>
         </div>
       </div>

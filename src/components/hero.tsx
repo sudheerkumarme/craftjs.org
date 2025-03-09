@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import SketchToCodeAnimation from "@/components/sketch-to-code-animation";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -58,15 +59,16 @@ export default function Hero() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button size="lg" className="font-medium text-base">
-                Try CraftJS Now
+              <Button size="lg" className="font-medium text-base" asChild>
+                <Link href="/login">Try CraftJS Now</Link>
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="font-medium text-base"
+                asChild
               >
-                Watch Demo
+                <Link href="/login">Watch Demo</Link>
               </Button>
             </motion.div>
           </motion.div>
