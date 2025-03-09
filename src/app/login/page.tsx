@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, Moon, Sun } from "lucide-react";
-import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,9 +14,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useTheme } from "next-themes";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
-  const { login, status } = useAuth();
   const { theme, setTheme } = useTheme();
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -29,7 +28,7 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     setIsGoogleLoading(true);
-    login("google");
+    signIn("google", { redirectTo: "/dashboard" });
   };
 
   return (
@@ -78,7 +77,7 @@ export default function LoginPage() {
             <Button
               variant="outline"
               onClick={handleGoogleLogin}
-              disabled={isGoogleLoading || status === "loading"}
+              disabled={isGoogleLoading}
               className="w-full"
             >
               {isGoogleLoading ? (

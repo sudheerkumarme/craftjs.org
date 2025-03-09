@@ -1,10 +1,9 @@
 "use client";
 
 import type React from "react";
-
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import {
   PenLine,
@@ -18,6 +17,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "next-themes";
+import { signOut, useSession } from "next-auth/react";
 
 type ExtendedUserData = {
   name: string;
@@ -43,7 +43,7 @@ function DiscordIcon(props: React.ComponentProps<"svg">) {
 }
 
 export default function Dashboard() {
-  const { user, logout, status } = useAuth();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [extendedUserData, setExtendedUserData] =
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchUserData() {
-      if (user && status === "authenticated") {
+      if (session?.user && status === "authenticated") {
         try {
           const response = await fetch("/api/user");
           if (response.ok) {
@@ -80,7 +80,7 @@ export default function Dashboard() {
     }
 
     fetchUserData();
-  }, [user, status]);
+  }, [session?.user, status]);
 
   if (status === "loading" || loading) {
     return (
@@ -90,12 +90,12 @@ export default function Dashboard() {
     );
   }
 
-  if (!user) {
-    return null;
+  if (!session?.user) {
+    return <div>Not authenticated</div>;
   }
 
   // Use extended user data if available, otherwise fall back to session user data
-  const displayUser = extendedUserData || user;
+  const displayUser = extendedUserData || session?.user;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -131,10 +131,12 @@ export default function Dashboard() {
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
                 {displayUser.image ? (
-                  <img
+                  <Image
                     src={displayUser.image || "/placeholder.svg"}
-                    alt={displayUser.name}
-                    className="w-8 h-8 rounded-full"
+                    alt="User profile image"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
                   />
                 ) : (
                   <span className="text-sm font-medium">
@@ -146,7 +148,7 @@ export default function Dashboard() {
                 {displayUser.name}
               </span>
             </div>
-            <Button variant="outline" size="sm" onClick={logout}>
+            <Button variant="outline" size="sm" onClick={() => signOut()}>
               Sign Out
             </Button>
           </div>
@@ -178,8 +180,8 @@ export default function Dashboard() {
 
                   <p className="text-foreground/90">
                     We are still under construction, but you will be one of the
-                    first users to get access to the product as soon as we are
-                    ready with it. We appreciate your patience.
+                    first users to get access to the product as soon as
+                    we&apos;re ready with it. We appreciate your patience.
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 py-2">
@@ -239,8 +241,8 @@ export default function Dashboard() {
 
                   <div className="pt-2 border-t border-primary/10 mt-6">
                     <p className="text-sm text-muted-foreground">
-                      We'll notify you via email when CraftJS is ready for you
-                      to try. In the meantime, follow us on social media for
+                      We&apos;ll notify you via email when CraftJS is ready for
+                      you to try. In the meantime, follow us on social media for
                       updates and sneak peeks!
                     </p>
                   </div>
@@ -250,7 +252,7 @@ export default function Dashboard() {
           </Card>
 
           <div className="mt-8 text-center">
-            <h2 className="text-2xl font-semibold mb-4">What's Next?</h2>
+            <h2 className="text-2xl font-semibold mb-4">What&apos;s Next?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-card rounded-lg border p-4 flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
